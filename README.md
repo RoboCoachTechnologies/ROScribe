@@ -36,10 +36,10 @@ ROScribe uses OpenAI's `gpt-3.5-turbo-16k` as the default LLM. You can switch to
 
 - Start ROScribe by typing `roscibe` in the terminal.
 - Briefly describe the robot software you want to deploy:
-  - `Your Robot Software: *I want to deploy 2-D occupancy grid mapping.*`
+  - `Your Robot Software: I want to deploy 2-D occupancy grid mapping.`
 - ROScibe will ask you high-level questions reagrding your deployment:
-  - `ROScribe: *Are you going to deploy your mapping algorithm on a real robot or use a dataset?*`
-  - `Answer: *I am going to deploy my software on a robot with a 2-D LiDAR...*`
+  - `ROScribe: Are you going to deploy your mapping algorithm on a real robot or use a dataset?`
+  - `Answer: I am going to deploy my software on a robot with a 2-D LiDAR...`
 - When ROScribe learns about your project, it will show you a list of ROS nodes and topics that will be involved in you software.
 - The subscription/publisher relationship between the ROS nodes can be visualized similar to RQT graph.
 - Moreover, you can edit the list of ROS nodes and topics based on your preference.
