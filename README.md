@@ -13,9 +13,9 @@ Inspired by [GPT Synthesizer](https://github.com/RoboCoachTechnologies/GPT-Synth
 
 The natural language interface of ROScribe is intended to lower the skill barrier of using ROS for novice programmers, while still providing value to experienced ROS users. This is achieved thanks to the flexibility of large language models (LLMs) alongside the prompt tuning techniques of ROScribe.
 
-If you are new to ROS, you can use ROScribe to get started on your robotic projects as your robot(ics) mentor 🤖️
+If you are new to ROS, ROScribe will be your robot(ics) mentor 🤖️
 
-If you are a seasoned ROS programmer, ROScribe helps you with creating a blueprint for your ROS package 📦️
+If you are a seasoned ROS user, ROScribe can help with creating a blueprint for your ROS package 📦️
 
 ## Installation
 
