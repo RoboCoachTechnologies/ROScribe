@@ -3,7 +3,7 @@ import os
 from langchain.chat_models import ChatOpenAI
 
 
-def llm_init(model_name="gpt-3.5-turbo-16k-0613",
+def llm_init(model_name="gpt-3.5-turbo-16k",
              temperature=0.2,
              max_tokens=13000,
              model_kwargs={'frequency_penalty':0.2, 'presence_penalty':0}):

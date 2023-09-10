@@ -279,6 +279,8 @@ def get_gen_cmake_prompt():
 
     Keep in mind that all of the ROS nodes are implemented in Python programming language, so they don't need to be compiled.
     
+    Specifically, you should not call 'add_executable()' for the ROS nodes, since they are Python nodes.
+    
     Also note that the catkin package name is '{project_name}'.
 
     In terms of dependencies, pay attention to the ROS message types in the list above; since the message types dictate the package dependencies.
@@ -296,7 +298,7 @@ def get_gen_cmake_prompt():
 
     Where 'CODE' is your created CMakeLists script."""
     return PromptTemplate(template=template,
-                          input_variables=["task", "node_topic_list"])
+                          input_variables=["task", "node_topic_list", "project_name"])
 
 
 def get_gen_package_prompt():
@@ -334,4 +336,4 @@ def get_gen_package_prompt():
 
     Where 'CODE' is your created package.xml script."""
     return PromptTemplate(template=template,
-                          input_variables=["task", "node_topic_list"])
+                          input_variables=["task", "node_topic_list", "project_name"])

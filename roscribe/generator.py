@@ -47,7 +47,7 @@ def launch_generator(task, node_topic_list, project_name, llm, verbose=False):
         verbose=verbose
     )
 
-    gen_launch_output = gen_launch_chain.predict(task=task, node_topic_list=node_topic_list)
+    gen_launch_output = gen_launch_chain.predict(task=task, node_topic_list=node_topic_list, project_name=project_name)
 
     to_files(gen_launch_output, project_name, 'launch')
 
@@ -63,7 +63,7 @@ def install_generator(task, node_topic_list, project_name, llm, verbose=False):
         verbose=verbose
     )
 
-    gen_cmake_output = gen_cmake_chain.predict(task=task, node_topic_list=node_topic_list)
+    gen_cmake_output = gen_cmake_chain.predict(task=task, node_topic_list=node_topic_list, project_name=project_name)
 
     to_files(gen_cmake_output, project_name, 'install')
 
@@ -75,7 +75,8 @@ def install_generator(task, node_topic_list, project_name, llm, verbose=False):
         verbose=verbose
     )
 
-    gen_package_output = gen_package_chain.predict(task=task, node_topic_list=node_topic_list)
+    gen_package_output = gen_package_chain.predict(task=task, node_topic_list=node_topic_list,
+                                                   project_name=project_name)
 
     to_files(gen_package_output, project_name, 'install')
 
@@ -96,13 +97,13 @@ def to_files(chat, project_name, mode):
         code = workspace[filename]
 
         if mode == 'src':
-            with open(f'catkin_ws/src/{project_name}/src/' + filename, 'w') as file:
+            with open(f'catkin_ws/src/{project_name}/src/{filename}', 'w') as file:
                 file.write(code)
         elif mode == 'launch':
-            with open(f'catkin_ws/src/{project_name}/launch/' + filename, 'w') as file:
+            with open(f'catkin_ws/src/{project_name}/launch/{filename}', 'w') as file:
                 file.write(code)
         elif mode == 'install':
-            with open(f'catkin_ws/src/{project_name}' + filename, 'w') as file:
+            with open(f'catkin_ws/src/{project_name}/{filename}', 'w') as file:
                 file.write(code)
         else:
             print('Invalid file storage mode!')
