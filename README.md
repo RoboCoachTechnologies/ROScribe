@@ -34,7 +34,7 @@ ROScribe uses OpenAI's `gpt-3.5-turbo-16k` as the default LLM. You can switch to
 
 **Run**:
 
-- Start ROScribe by typing `roscibe` in the terminal.
+- Start ROScribe by typing `roscribe` in the terminal.
 
 <video src="docs/assets/start.mp4" controls></video>
 
@@ -42,23 +42,23 @@ ROScribe uses OpenAI's `gpt-3.5-turbo-16k` as the default LLM. You can switch to
 
 [](docs/assets/task_desc.mp4){loop=""}
 
-- ROScibe will ask you high-level questions reagrding your deployment.
+- ROScibe asks you high-level questions regarding your deployment.
 
 [](docs/assets/node_qa.mp4){loop=""}
 
-- When ROScribe learns about your project, it will show you a list of ROS nodes and topics that will be involved in you software. The subscription/publisher relationship between the ROS nodes can be also visualized similar to RQT graph.
+- Once ROScribe learns about your project, it shows you a list of ROS nodes and topics that are involved in your software. The subscriber/publisher relationship between the ROS nodes can be visualized similar to RQT graph.
 
 [](docs/assets/node_topic_viz.mp4){loop=""}
 
-- Moreover, you can edit the list of ROS nodes and topics based on your preference.
+- Moreover, you can edit (i.e. add/remove) the list of ROS nodes and topics based on your preference.
 
 [](docs/assets/mod_node_topic.mp4){loop=""}
 
-- After you finalize the node list, ROScribe will start identifying the specifications of each ROS node through a Q&A process. This is the most important step since the final implmentation would be highly influenced by this conversation.
+- After you finalize the node list, ROScribe will start identifying the specifications of each ROS node through a Q&A process. This is the most important step since the final implementation would be highly influenced by this conversation.
 
 [](docs/assets/spec_qa.mp4){loop=""}
 
-- The code for each node is generated when ROScribe finds all the implmentation details. Additionally, ROS launch file and installation scripts (package.xml and CMakeLists.txt) are created according to the project requirements. For Python ROS nodes, don't forget to allow executing your nodes as programs via `chmod +x ros_node.py`.
+- The code for each node is generated when ROScribe finds all the implementation details. Additionally, ROS launch file and installation scripts (package.xml and CMakeLists.txt) are created according to the project requirements. For Python ROS nodes, don't forget to allow executing your nodes as programs via `chmod +x ros_node.py`.
 
 [](docs/assets/code_gen.mp4){loop=""}
 
@@ -75,7 +75,7 @@ ROScribe uses OpenAI's `gpt-3.5-turbo-16k` as the default LLM. You can switch to
 Currently, ROScribe only supports ROS1 with Python code generation. We aim to add the following features in the coming releases:
 - ROS2 support
 - C++ code generation
-- ROS1 to ROS2 automated code-base migration
+- ROS1 to ROS2 automated codebase migration
 
 As an open-source project, we encourage all robotics enthusiasts to contribute to ROScribe. During each release, we will announce the list of new contributors.
 
