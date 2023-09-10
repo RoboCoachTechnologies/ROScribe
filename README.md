@@ -35,17 +35,40 @@ ROScribe uses OpenAI's `gpt-3.5-turbo-16k` as the default LLM. You can switch to
 **Run**:
 
 - Start ROScribe by typing `roscibe` in the terminal.
-- Briefly describe the robot software you want to deploy:
-  - `Your Robot Software: I want to deploy 2-D occupancy grid mapping.`
-- ROScibe will ask you high-level questions reagrding your deployment:
-  - `ROScribe: Are you going to deploy your mapping algorithm on a real robot or use a dataset?`
-  - `Answer: I am going to deploy my software on a robot with a 2-D LiDAR...`
-- When ROScribe learns about your project, it will show you a list of ROS nodes and topics that will be involved in you software.
-- The subscription/publisher relationship between the ROS nodes can be visualized similar to RQT graph.
+
+[](docs/assets/start.mp4){loop=""}
+
+- Briefly describe the robot software you want to deploy.
+
+[](docs/assets/task_desc.mp4){loop=""}
+
+- ROScibe will ask you high-level questions reagrding your deployment.
+
+[](docs/assets/node_qa.mp4){loop=""}
+
+- When ROScribe learns about your project, it will show you a list of ROS nodes and topics that will be involved in you software. The subscription/publisher relationship between the ROS nodes can be also visualized similar to RQT graph.
+
+[](docs/assets/node_topic_viz.mp4){loop=""}
+
 - Moreover, you can edit the list of ROS nodes and topics based on your preference.
-- After you finalize the node list, ROScribe will start identifying the specifications of each ROS node through a Q&A process. This is the most immportant step since the fial implmentation would be highly influenced by this conversation.
-- The code for each node is generated when ROScribe finds all the implmentation details.
-- Finally, a ROS launch file and installation scripts (package.xml and CMakeLists.txt) are created according to the project requirements.
+
+[](docs/assets/mod_node_topic.mp4){loop=""}
+
+- After you finalize the node list, ROScribe will start identifying the specifications of each ROS node through a Q&A process. This is the most important step since the final implmentation would be highly influenced by this conversation.
+
+[](docs/assets/spec_qa.mp4){loop=""}
+
+- The code for each node is generated when ROScribe finds all the implmentation details. Additionally, ROS launch file and installation scripts (package.xml and CMakeLists.txt) are created according to the project requirements. For Python ROS nodes, don't forget to allow executing your nodes as programs via `chmod +x ros_node.py`.
+
+[](docs/assets/code_gen.mp4){loop=""}
+
+- After ROScribe finishes code generation, you can install your ROS package by using `catkin`. After installation, source your workspace in order to link to your ROS packages.
+
+[](docs/assets/install.mp4){loop=""}
+
+- You can launch your ROS package by using `roslaunch` command and calling the generated launch file.
+
+[](docs/assets/launch.mp4){loop=""}
 
 ## Roadmap
 
