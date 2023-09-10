@@ -34,39 +34,30 @@ ROScribe uses OpenAI's `gpt-3.5-turbo-16k` as the default LLM. You can switch to
 
 - Start ROScribe by typing `roscribe` in the terminal.
 
-<video src="https://github.com/RoboCoachTechnologies/ROScribe/assets/85717407/85d43116-3b8e-4235-b507-40e3b11c1160"></video>
 
 - Briefly describe the robot software you want to deploy.
 
-https://github.com/RoboCoachTechnologies/ROScribe/assets/85717407/e1382d14-71f8-4985-9c0b-a09b8ce052f8
 
 - ROScibe asks you high-level questions regarding your deployment.
 
-https://github.com/RoboCoachTechnologies/ROScribe/assets/85717407/27113957-64c2-45b8-ac83-b437b3c88c9c
 
 - Once ROScribe learns about your project, it shows you a list of ROS nodes and topics that are involved in your software. The subscriber/publisher relationship between the ROS nodes can be visualized similar to RQT graph.
 
-https://github.com/RoboCoachTechnologies/ROScribe/assets/85717407/35819068-a724-4b8c-baa2-3aa1ca35f84d
 
 - Moreover, you can edit (i.e. add/remove) the list of ROS nodes and topics based on your preference.
 
-https://github.com/RoboCoachTechnologies/ROScribe/assets/85717407/0c05c637-9cc4-4289-8703-c156492fe247
 
 - After you finalize the node list, ROScribe will start identifying the specifications of each ROS node through a Q&A process. This is the most important step since the final implementation would be highly influenced by this conversation.
 
-https://github.com/RoboCoachTechnologies/ROScribe/assets/85717407/f99687f2-745d-47c5-916f-b9b16a8c86a3
 
 - The code for each node is generated when ROScribe finds all the implementation details. Additionally, ROS launch file and installation scripts (package.xml and CMakeLists.txt) are created according to the project requirements. For Python ROS nodes, don't forget to allow executing your nodes as programs via `chmod +x ros_node.py`.
 
-https://github.com/RoboCoachTechnologies/ROScribe/assets/85717407/eadf8815-44e4-4713-9c1d-c94886562a2b
 
 - After ROScribe finishes code generation, you can install your ROS package by using `catkin`. After installation, source your workspace in order to link to your ROS packages.
 
-https://github.com/RoboCoachTechnologies/ROScribe/assets/85717407/af893a3a-e9d8-4a4a-b490-ce799c069fe9
 
 - You can launch your ROS package by using `roslaunch` command and calling the generated launch file.
 
-https://github.com/RoboCoachTechnologies/ROScribe/assets/85717407/9850ed36-a834-45a6-a6ae-22362baddec3
 
 ## Roadmap
 
