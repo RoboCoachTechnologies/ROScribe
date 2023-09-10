@@ -36,7 +36,7 @@ ROScribe uses OpenAI's `gpt-3.5-turbo-16k` as the default LLM. You can switch to
 
 - Start ROScribe by typing `roscibe` in the terminal.
 
-[](docs/assets/start.mp4){loop=""}
+<video src="docs/assets/start.mp4" controls></video>
 
 - Briefly describe the robot software you want to deploy.
 
