@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "roscribe"
-version = "0.0.1"
+version = "0.0.2"
 description = "Translate natural language into robot software."
 readme = "README.md"
 authors = [{ name = "RoboCoach Technologies", email = "robocoachtechnologies@gmail.com" }]
