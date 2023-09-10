@@ -1,8 +1,8 @@
 # ROScribe
 
-**Turn natural language into ROS packages with the power of LLMs.**
+**Create ROS packages using LLMs.**
 
-ROScribe helps you deploy robot software in the form of Robot Opertaing System (ROS) packages, only using human language input. Figure out your ROS nodes and topics, visualize the node graph, find the design specifications, and generate the code, all using ROScribe!
+Using a natural language interface to describe robotic projects, ROScribe eliminates the skill barrier of using ROS for beginners, and saves time and hassle for skilled engineers. ROScribe combines the sheer power and flexibility of large language models (LLMs) with prompt tuning techniques to capture the details of your robotic design and to automatically create an entire ROS package for your project.
 
 Inspired by [GPT Synthesizer](https://github.com/RoboCoachTechnologies/GPT-Synthesizer), ROScribe builds an entire ROS package through a series of specification steps that identify the package elements in a top-down approach. In particular, ROScribe helps you with the following steps:
 
@@ -10,8 +10,6 @@ Inspired by [GPT Synthesizer](https://github.com/RoboCoachTechnologies/GPT-Synth
 2. Visualizing your project in an RQT-style graph
 3. Generating code for each ROS node
 4. Writing launch file and installation scripts
-
-The natural language interface of ROScribe is intended to lower the skill barrier of using ROS for novice programmers, while still providing value to experienced ROS users. This is achieved thanks to the flexibility of large language models (LLMs) alongside the prompt tuning techniques of ROScribe.
 
 If you are new to ROS, ROScribe will be your robot(ics) mentor 🤖️
 
