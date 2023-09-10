@@ -34,30 +34,39 @@ ROScribe uses OpenAI's `gpt-3.5-turbo-16k` as the default LLM. You can switch to
 
 - Start ROScribe by typing `roscribe` in the terminal.
 
+[](assets/docs/start.gif)
 
 - Briefly describe the robot software you want to deploy.
 
+[](assets/docs/task_desc.gif)
 
 - ROScibe asks you high-level questions regarding your deployment.
 
+[](assets/docs/node_qa.gif)
 
 - Once ROScribe learns about your project, it shows you a list of ROS nodes and topics that are involved in your software. The subscriber/publisher relationship between the ROS nodes can be visualized similar to RQT graph.
 
+[](assets/docs/node_topic_viz.gif)
 
 - Moreover, you can edit (i.e. add/remove) the list of ROS nodes and topics based on your preference.
 
+[](assets/docs/mod_node_topic.gif)
 
 - After you finalize the node list, ROScribe will start identifying the specifications of each ROS node through a Q&A process. This is the most important step since the final implementation would be highly influenced by this conversation.
 
+[](assets/docs/spec_qa.gif)
 
 - The code for each node is generated when ROScribe finds all the implementation details. Additionally, ROS launch file and installation scripts (package.xml and CMakeLists.txt) are created according to the project requirements. For Python ROS nodes, don't forget to allow executing your nodes as programs via `chmod +x ros_node.py`.
 
+[](assets/docs/code_gen.gif)
 
 - After ROScribe finishes code generation, you can install your ROS package by using `catkin`. After installation, source your workspace in order to link to your ROS packages.
 
+[](assets/docs/install.gif)
 
 - You can launch your ROS package by using `roslaunch` command and calling the generated launch file.
 
+[](assets/docs/launch.gif)
 
 ## Roadmap
 
