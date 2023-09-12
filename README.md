@@ -26,6 +26,9 @@ If you are a seasoned ROS user, ROScribe can help with creating a blueprint for 
 
 ## Usage
 
+Watch this demo to see how ROScribe works:
+- [ROScribe v0.0.2 demo: TurtleSim](https://www.youtube.com/watch?v=H2QaeelkReU)
+
 ROScribe uses OpenAI's `gpt-3.5-turbo-16k` as the default LLM. You can switch to other [supported models](https://python.langchain.com/docs/integrations/llms/) by LangChain; however you might have to get the API for each model or [run them locally](https://python.langchain.com/docs/integrations/llms/huggingface_pipelines).
 
 - Setup your OpenAI API key: `export OPENAI_API_KEY=[your api key]`
