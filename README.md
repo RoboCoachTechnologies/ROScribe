@@ -73,8 +73,7 @@ ROScribe uses OpenAI's `gpt-3.5-turbo-16k` as the default LLM. You can switch to
 
 ## Roadmap
 
-Currently, ROScribe only supports ROS1 with Python code generation. We aim to add the following features in the coming releases:
-- ROS2 support
+Currently, ROScribe supports both ROS1 and ROS2 with Python code generation. We aim to add the following features in the coming releases:
 - C++ code generation
 - ROS1 to ROS2 automated codebase migration
 
