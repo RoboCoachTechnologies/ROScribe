@@ -163,3 +163,6 @@ catkin_ws/
 # Generated figures
 *.gv
 *.pdf
+
+# Docker scripts
+docker_run

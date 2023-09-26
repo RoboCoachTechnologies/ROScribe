@@ -9,20 +9,88 @@ from roscribe.parser import get_code_from_chat
 import roscribe.ui as ui
 
 
-def catkin_ws_generator(project_name):
-    if not os.path.exists('catkin_ws'):
-        os.mkdir('catkin_ws')
+ROS_WS_NAME = 'ros_ws'
 
-    if not os.path.exists('catkin_ws/src'):
-        os.mkdir('catkin_ws/src')
+SETUP_PY_TEMPLATE = """
+setup.py
+```python
+from setuptools import setup
 
-    os.mkdir(f'catkin_ws/src/{project_name}')
-    os.mkdir(f'catkin_ws/src/{project_name}/src')
-    os.mkdir(f'catkin_ws/src/{project_name}/launch')
+package_name = '{package_name}'
+
+setup(
+ name=package_name,
+ version='0.0.1',
+ packages=[package_name],
+ data_files=[
+     ('share/ament_index/resource_index/packages',
+             ['resource/' + package_name]),
+     ('share/' + package_name, ['package.xml']),
+   ],
+ install_requires=['setuptools'],
+ zip_safe=True,
+ maintainer='TODO',
+ maintainer_email='TODO',
+ description='TODO: Package description',
+ license='TODO: License declaration',
+ tests_require=['pytest'],
+ entry_points={
+     'console_scripts': [
+             {node_list}
+     ],
+   },
+)
+```
+"""
 
 
-def code_generator(task, node_topic_list, curr_node, summary, project_name, llm, verbose=False):
-    gen_code_prompt = get_gen_code_prompt()
+SETUP_CFG_TEMPLATE = """
+setup.cfg
+```cfg
+[develop]
+script_dir=$base/lib/{package_name}
+[install]
+install_scripts=$base/lib/{package_name}
+```
+"""
+
+
+def make_setup_py(node_topic_dict, package_name):
+    node_list_str = ""
+    for node in node_topic_dict.keys():
+        node_list_str += f"'{node} = {package_name}.{node}:main', "
+
+    setup_py = SETUP_PY_TEMPLATE.format(package_name=package_name, node_list=node_list_str)
+    return setup_py
+
+
+def make_setup_cfg(package_name):
+    setup_cfg = SETUP_CFG_TEMPLATE.format(package_name=package_name)
+    return setup_cfg
+
+
+def ros_ws_generator(project_name, ros_version):
+    if not os.path.exists(ROS_WS_NAME):
+        os.mkdir(ROS_WS_NAME)
+
+    if not os.path.exists(f'{ROS_WS_NAME}/src'):
+        os.mkdir(f'{ROS_WS_NAME}/src')
+
+    os.mkdir(f'{ROS_WS_NAME}/src/{project_name}')
+    os.mkdir(f'{ROS_WS_NAME}/src/{project_name}/launch')
+
+    if ros_version == 'ros1':
+        os.mkdir(f'{ROS_WS_NAME}/src/{project_name}/src')
+    elif ros_version == 'ros2':
+        os.mkdir(f'{ROS_WS_NAME}/src/{project_name}/{project_name}')
+        open(f'{ROS_WS_NAME}/src/{project_name}/{project_name}/__init__.py', 'x')
+
+        os.mkdir(f'{ROS_WS_NAME}/src/{project_name}/resource')
+        open(f'{ROS_WS_NAME}/src/{project_name}/resource/{project_name}', 'x')
+
+
+def code_generator(task, node_topic_list, curr_node, summary, project_name, ros_version, llm, verbose=False):
+    gen_code_prompt = get_gen_code_prompt(ros_version)
 
     gen_code_chain = LLMChain(
         llm=llm,
@@ -33,13 +101,13 @@ def code_generator(task, node_topic_list, curr_node, summary, project_name, llm,
     gen_code_output = gen_code_chain.predict(task=task, node_topic_list=node_topic_list,
                                              curr_node=curr_node, summary=summary)
 
-    to_files(gen_code_output, project_name, 'src')
+    to_files(gen_code_output, project_name, 'impl', ros_version)
 
     print(ui.GEN_NODE_CODE_MSG.format(node=curr_node))
 
 
-def launch_generator(task, node_topic_list, project_name, llm, verbose=False):
-    gen_launch_prompt = get_gen_launch_prompt()
+def launch_generator(task, node_topic_list, project_name, ros_version, llm, verbose=False):
+    gen_launch_prompt = get_gen_launch_prompt(ros_version)
 
     gen_launch_chain = LLMChain(
         llm=llm,
@@ -54,20 +122,25 @@ def launch_generator(task, node_topic_list, project_name, llm, verbose=False):
     print(ui.GEN_LAUNCH_MSG)
 
 
-def install_generator(task, node_topic_list, project_name, llm, verbose=False):
-    gen_cmake_prompt = get_gen_cmake_prompt()
+def install_generator(task, node_topic_dict, node_topic_list, project_name, ros_version, llm, verbose=False):
+    if ros_version == 'ros1':
+        gen_cmake_prompt = get_gen_cmake_prompt()
 
-    gen_cmake_chain = LLMChain(
-        llm=llm,
-        prompt=gen_cmake_prompt,
-        verbose=verbose
-    )
+        gen_cmake_chain = LLMChain(
+            llm=llm,
+            prompt=gen_cmake_prompt,
+            verbose=verbose
+        )
 
-    gen_cmake_output = gen_cmake_chain.predict(task=task, node_topic_list=node_topic_list, project_name=project_name)
+        gen_install_output = gen_cmake_chain.predict(task=task, node_topic_list=node_topic_list,
+                                                     project_name=project_name)
 
-    to_files(gen_cmake_output, project_name, 'install')
+    elif ros_version == 'ros2':
+        gen_install_output = make_setup_py(node_topic_dict, project_name)
 
-    gen_package_prompt = get_gen_package_prompt()
+    to_files(gen_install_output, project_name, 'install', ros_version)
+
+    gen_package_prompt = get_gen_package_prompt(ros_version)
 
     gen_package_chain = LLMChain(
         llm=llm,
@@ -83,7 +156,7 @@ def install_generator(task, node_topic_list, project_name, llm, verbose=False):
     print(ui.GEN_INSTALL_MSG)
 
 
-def to_files(chat, project_name, mode):
+def to_files(chat, project_name, mode, ros_version='ros1'):
     workspace = dict()
 
     files = get_code_from_chat(chat)
@@ -96,14 +169,24 @@ def to_files(chat, project_name, mode):
     for filename in workspace.keys():
         code = workspace[filename]
 
-        if mode == 'src':
-            with open(f'catkin_ws/src/{project_name}/src/{filename}', 'w') as file:
-                file.write(code)
+        if mode == 'impl':
+            if ros_version == 'ros1':
+                with open(f'{ROS_WS_NAME}/src/{project_name}/src/{filename}', 'w') as file:
+                    file.write(code)
+            elif ros_version == 'ros2':
+                with open(f'{ROS_WS_NAME}/src/{project_name}/{project_name}/{filename}', 'w') as file:
+                    file.write(code)
+
         elif mode == 'launch':
-            with open(f'catkin_ws/src/{project_name}/launch/{filename}', 'w') as file:
+            with open(f'{ROS_WS_NAME}/src/{project_name}/launch/{filename}', 'w') as file:
                 file.write(code)
+
         elif mode == 'install':
-            with open(f'catkin_ws/src/{project_name}/{filename}', 'w') as file:
+            with open(f'{ROS_WS_NAME}/src/{project_name}/{filename}', 'w') as file:
                 file.write(code)
+
+            if ros_version == 'ros2' and filename == 'setup.py':
+                with open(f'{ROS_WS_NAME}/src/{project_name}/setup.cfg', 'w') as file:
+                    file.write(make_setup_cfg(project_name))
         else:
             print('Invalid file storage mode!')

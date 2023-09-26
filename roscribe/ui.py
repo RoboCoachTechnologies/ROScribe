@@ -4,6 +4,10 @@ Welcome to ROScribe! I am here to assist you with creating a robot software.
 First, please briefly tell me what you would like to implement. Don't worry about the details! We will talk about them later.
 """
 
+VALID_ROS_VER = """
+Please enter a valid ROS version. The acceptable answers are either 'ROS1' or 'ROS2'.
+"""
+
 NODE_MSG_ANALYZE_INIT = """
 I am going to analyze our conversation and identify the ROS nodes and ROS topics that are going to be involved in our project.
 
@@ -80,7 +84,7 @@ Let's talk about {node}.
 """
 
 LAUNCH_INSTALL_MSG = """
-It seems like we have implemented all the ROS nodes for the project. Now I am going to finalize the package creation by adding launch files, CMakeLists, and ROS package description.
+It seems like we have implemented all the ROS nodes for the project. Now I am going to finalize the package creation by adding launch files, installation scripts, and ROS package description.
 """
 
 GEN_NODE_CODE_MSG = """
