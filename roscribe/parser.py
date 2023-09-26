@@ -9,6 +9,9 @@ from pydantic import BaseModel, Field
 from langchain.output_parsers import PydanticOutputParser
 
 
+MOD_INPUT_SCHEMA = Schema((str, str, [(str, str)], [(str, str)]))
+
+
 # Data structure for the output of ROS nodes
 class NodeList(BaseModel):
     ros_nodes: Dict[str, str] = Field(description="dictionary containing ROS node names as keys and ROS node descriptions as values")
@@ -77,9 +80,6 @@ def make_node_topic_list_str(node_topic_dict):
                                "\t\tPublished Topics: " + topic_pub_str + "\n"
 
     return node_topic_list_str
-
-
-MOD_INPUT_SCHEMA = Schema((str, str, [(str, str)], [(str, str)]))
 
 
 def modify_node_dict(mod_input, node_topic_dict):
