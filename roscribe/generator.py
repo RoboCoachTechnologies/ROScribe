@@ -34,11 +34,7 @@ setup(
  description='TODO: Package description',
  license='TODO: License declaration',
  tests_require=['pytest'],
- entry_points={
-     'console_scripts': [
-             {node_list}
-     ],
-   },
+ entry_points={console_scripts},
 )
 ```
 """
@@ -56,11 +52,13 @@ install_scripts=$base/lib/{package_name}
 
 
 def make_setup_py(node_topic_dict, package_name):
-    node_list_str = ""
+    console_scripts = "'console_scripts': ["
     for node in node_topic_dict.keys():
-        node_list_str += f"'{node} = {package_name}.{node}:main', "
+        console_scripts += f"'{node} = {package_name}.{node}:main', "
 
-    setup_py = SETUP_PY_TEMPLATE.format(package_name=package_name, node_list=node_list_str)
+    console_scripts = console_scripts[:-2] + "]"
+
+    setup_py = SETUP_PY_TEMPLATE.format(package_name=package_name, console_scripts=console_scripts)
     return setup_py
 
 
@@ -132,13 +130,16 @@ def install_generator(task, node_topic_dict, node_topic_list, project_name, ros_
             verbose=verbose
         )
 
-        gen_install_output = gen_cmake_chain.predict(task=task, node_topic_list=node_topic_list,
+        gen_cmake_output = gen_cmake_chain.predict(task=task, node_topic_list=node_topic_list,
                                                      project_name=project_name)
+        to_files(gen_cmake_output, project_name, 'install')
 
     elif ros_version == 'ros2':
-        gen_install_output = make_setup_py(node_topic_dict, project_name)
+        setup_py = make_setup_py(node_topic_dict, project_name)
+        to_files(setup_py, project_name, 'install')
 
-    to_files(gen_install_output, project_name, 'install', ros_version)
+        setup_cfg = make_setup_cfg(project_name)
+        to_files(setup_cfg, project_name, 'install')
 
     gen_package_prompt = get_gen_package_prompt(ros_version)
 
@@ -184,9 +185,55 @@ def to_files(chat, project_name, mode, ros_version='ros1'):
         elif mode == 'install':
             with open(f'{ROS_WS_NAME}/src/{project_name}/{filename}', 'w') as file:
                 file.write(code)
-
-            if ros_version == 'ros2' and filename == 'setup.py':
-                with open(f'{ROS_WS_NAME}/src/{project_name}/setup.cfg', 'w') as file:
-                    file.write(make_setup_cfg(project_name))
         else:
             print('Invalid file storage mode!')
+
+
+def test_setup_py():
+    package_name = 'my_package'
+    node_topic_dict = {'node_A': {'description': 'node_A description',
+                                  'published_topics': [('topic_1', 'topic_1_msg_type'),
+                                                       ('topic_2', 'topic_2_msg_type')],
+                                  'subscribed_topics': [('topic_3', 'topic_3_msg_type')]},
+                       'node_B': {'description': 'node_B description',
+                                  'published_topics': [('topic_3', 'topic_3_msg_type')],
+                                  'subscribed_topics': []},
+                       'node_C': {'description': 'node_C description',
+                                  'published_topics': [('topic_2', 'topic_2_msg_type')],
+                                  'subscribed_topics': [('topic_1', 'topic_1_msg_type')]},
+                       }
+    print(make_setup_py(node_topic_dict, package_name))
+
+
+def test_setup_cfg():
+    package_name = 'my_package'
+    print(make_setup_cfg(package_name))
+
+
+def test_dump_setup():
+    package_name = 'my_package'
+    node_topic_dict = {'node_A': {'description': 'node_A description',
+                                  'published_topics': [('topic_1', 'topic_1_msg_type'),
+                                                       ('topic_2', 'topic_2_msg_type')],
+                                  'subscribed_topics': [('topic_3', 'topic_3_msg_type')]},
+                       'node_B': {'description': 'node_B description',
+                                  'published_topics': [('topic_3', 'topic_3_msg_type')],
+                                  'subscribed_topics': []},
+                       'node_C': {'description': 'node_C description',
+                                  'published_topics': [('topic_2', 'topic_2_msg_type')],
+                                  'subscribed_topics': [('topic_1', 'topic_1_msg_type')]}
+                       }
+
+    ros_ws_generator(package_name, 'ros2')
+
+    setup_py = make_setup_py(node_topic_dict, package_name)
+    to_files(setup_py, package_name, 'install')
+
+    setup_cfg = make_setup_cfg(package_name)
+    to_files(setup_cfg, package_name, 'install')
+
+
+if __name__ == '__main__':
+    test_setup_py()
+    test_setup_cfg()
+    test_dump_setup()

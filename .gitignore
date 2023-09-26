@@ -157,8 +157,7 @@ cython_debug/
 .idea/
 
 # Generated code
-workspace/
-catkin_ws/
+ros_ws/
 
 # Generated figures
 *.gv
