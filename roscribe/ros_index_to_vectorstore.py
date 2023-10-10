@@ -38,8 +38,8 @@ loader = WebBaseLoader(URLs[:link_limit])
 data = loader.load()
 text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0)
 all_splits = text_splitter.split_documents(data)
-# vectorstore = Chroma.from_documents(documents=all_splits,
-#                                     embedding=OpenAIEmbeddings(),
-#                                     persist_directory="./ros_index_db2")
-#
+vectorstore = Chroma.from_documents(documents=all_splits,
+                                    embedding=OpenAIEmbeddings(),
+                                    persist_directory="./ros_index_db")
+
 print("A ChromaDB object has been stored in \"ros_index_db\"!")
