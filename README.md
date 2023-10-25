@@ -79,6 +79,10 @@ Currently, ROScribe supports both ROS1 and ROS2 with Python code generation. We 
 
 As an open-source project, we encourage all robotics enthusiasts to contribute to ROScribe. During each release, we will announce the list of new contributors.
 
+## Additional documentations & articles
+
+[Looking inside ROScribe and the idea of LLM-based robotic platform](https://discourse.ros.org/t/looking-inside-roscribe-and-the-idea-of-llm-based-robotic-platform/34298) 
+
 ## Contact
 
 For business inquiries, such as consulting or contracting jobs, please contact robocoachtechnologies@gmail.com. 
