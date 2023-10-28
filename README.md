@@ -83,6 +83,8 @@ As an open-source project, we encourage all robotics enthusiasts to contribute t
 
 [Looking inside ROScribe and the idea of LLM-based robotic platform](https://discourse.ros.org/t/looking-inside-roscribe-and-the-idea-of-llm-based-robotic-platform/34298) 
 
+[Presentation for UCSD ROS workshop Oct.27,2023](docs/assets/ROScribeDeepDive.pdf)
+
 ## Contact
 
 For business inquiries, such as consulting or contracting jobs, please contact robocoachtechnologies@gmail.com. 
