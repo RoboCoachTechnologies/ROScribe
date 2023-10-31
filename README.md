@@ -83,7 +83,11 @@ As an open-source project, we encourage all robotics enthusiasts to contribute t
 
 [Looking inside ROScribe and the idea of LLM-based robotic platform](https://discourse.ros.org/t/looking-inside-roscribe-and-the-idea-of-llm-based-robotic-platform/34298) 
 
-[Presentation for UCSD ROS workshop Oct.27,2023](docs/assets/ROScribeDeepDive.pdf)
+[Presentation slides of UCSD ROS workshop Oct. 27, 2023](docs/assets/ROScribeDeepDive.pdf)
+
+[Video recording of UCSD ROS workshop presentation Oct. 27, 2023](https://www.youtube.com/watch?v=CPHleR-3Wko)
+
+
 
 ## Contact
 
