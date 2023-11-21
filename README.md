@@ -18,7 +18,7 @@ If you are a seasoned ROS user, ROScribe can help with creating a blueprint for 
 **New in v0.0.4:**
 ROScribe can now be used as your personal robotics consultant!
 
-A vector database of all open-source ROS repositories available on [ROS Index](https://index.ros.org/) is built, and using retrieval augmented generation (RAG), ROScribe can answer every question regarding relevant ROS packages to your project. Chekout [this wiki](https://github.com/RoboCoachTechnologies/ROScribe/wiki/3.-Explore-ROS-Repositories-with-RAG) for more information.
+A vector database of all open-source ROS repositories available on [ROS Index](https://index.ros.org/) is built, and using retrieval augmented generation (RAG), ROScribe can answer every question regarding relevant ROS packages for your project. Chekout [this wiki](https://github.com/RoboCoachTechnologies/ROScribe/wiki/3.-Explore-ROS-Repositories-with-RAG) for more information.
 
 ## How to use
 
