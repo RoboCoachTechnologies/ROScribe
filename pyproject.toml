@@ -24,7 +24,9 @@ keywords = ["Large Language Models", "AI-assisted Code Generation", "Robotics"]
 dependencies = [
     "langchain[openai]",
     "graphviz",
-    "schema"
+    "schema",
+    "pysqlite3-binary",
+    "chromadb"
 ]
 requires-python = ">=3.8"
 
