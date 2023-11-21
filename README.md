@@ -41,6 +41,14 @@ Currently, ROScribe only supports ROS1 with Python code generation. We aim to ad
 
 As an open-source project, we encourage all robotics enthusiasts to contribute to ROScribe. During each release, we will announce the list of new contributors.
 
+## Additional documentations & articles
+
+[Looking inside ROScribe and the idea of LLM-based robotic platform](https://discourse.ros.org/t/looking-inside-roscribe-and-the-idea-of-llm-based-robotic-platform/34298) 
+
+[Presentation slides of UCSD ROS workshop Oct. 27, 2023](docs/assets/ROScribeDeepDive.pdf)
+
+[Video recording of UCSD ROS workshop presentation Oct. 27, 2023](https://www.youtube.com/watch?v=CPHleR-3Wko)
+
 ## Contact
 
 For business inquiries, such as consulting or contracting jobs, please contact robocoachtechnologies@gmail.com. 
