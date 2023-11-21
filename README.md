@@ -15,12 +15,22 @@ If you are new to ROS, ROScribe will be your robot(ics) mentor 🤖️
 
 If you are a seasoned ROS user, ROScribe can help with creating a blueprint for your ROS package 📦️
 
+**New in v0.0.4:**
+ROScribe can now be used as your personal robotics consultant!
+
+A vector database of all open-source ROS repositories available on [ROS Index](https://index.ros.org/) is built, and using retrieval augmented generation (RAG), ROScribe can answer every question regarding relevant ROS packages to your project. Chekout [this wiki](https://github.com/RoboCoachTechnologies/ROScribe/wiki/3.-Explore-ROS-Repositories-with-RAG) for more information.
+
 ## How to use
 
 Please see our wiki page to learn how to install and use ROScribe in your robotics projects:
-* [Installation](https://github.com/RoboCoachTechnologies/ROScribe/wiki/2.-Installation)
-* [ROS Package Generation using ROScribe](https://github.com/RoboCoachTechnologies/ROScribe/wiki/3.-ROS-Package-Generation)
-* [Explore Open-source Robotics Repositories using ROScribe-RAG](https://github.com/RoboCoachTechnologies/ROScribe/wiki/4.-Explore-ROS-Repositories-with-RAG)
+* [Installation](https://github.com/RoboCoachTechnologies/ROScribe/wiki/1.-Installation)
+* [ROS Package Generation using ROScribe](https://github.com/RoboCoachTechnologies/ROScribe/wiki/2.-ROS-Package-Generation)
+* [Explore Open-source Robotics Repositories using ROScribe-RAG](https://github.com/RoboCoachTechnologies/ROScribe/wiki/3.-Explore-ROS-Repositories-with-RAG)
+
+## Demos
+
+- [TurtleSim Code Generation with ROScribe](https://www.youtube.com/watch?v=H2QaeelkReU)
+- [ROScribe-RAG Demo](https://www.youtube.com/watch?v=3b5FyZvlkxI&list=PLN8Hz7F2GjIkiYVForVuyvNs17sggQYOt&index=3)
 
 ## Roadmap
 
