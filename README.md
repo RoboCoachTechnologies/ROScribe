@@ -26,6 +26,7 @@ Please see our wiki page to learn how to install and use ROScribe in your roboti
 * [Installation](https://github.com/RoboCoachTechnologies/ROScribe/wiki/1.-Installation)
 * [ROS Package Generation using ROScribe](https://github.com/RoboCoachTechnologies/ROScribe/wiki/2.-ROS-Package-Generation)
 * [Explore Open-source Robotics Repositories using ROScribe-RAG](https://github.com/RoboCoachTechnologies/ROScribe/wiki/3.-Explore-ROS-Repositories-with-RAG)
+* [Create Your Own ROS Index Database](https://github.com/RoboCoachTechnologies/ROScribe/wiki/4.-Create-Your-Own-ROS-Index-Database)
 
 ## Demos
 
