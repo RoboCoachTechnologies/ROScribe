@@ -37,6 +37,7 @@ Homepage = "https://github.com/RoboCoachTechnologies/ROScribe"
 
 [project.scripts]
 roscribe = "roscribe.main:main"
+roscribe-rag = "roscribe.ros_index_chatbot:main"
 
 [tool.setuptools]
 packages = ["roscribe"]
