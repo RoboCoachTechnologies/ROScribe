@@ -15,61 +15,12 @@ If you are new to ROS, ROScribe will be your robot(ics) mentor 🤖️
 
 If you are a seasoned ROS user, ROScribe can help with creating a blueprint for your ROS package 📦️
 
-## Installation
+## How to use
 
-- `pip install roscribe`
-
-- For development:
-  - `git clone https://github.com/RoboCoachTechnologies/ROScribe.git`
-  - `cd ROScribe`
-  - `pip install -e .`
-
-## Usage
-
-Watch this demo to see how ROScribe works:
-- [ROScribe v0.0.2 demo: TurtleSim](https://www.youtube.com/watch?v=H2QaeelkReU)
-
-ROScribe uses OpenAI's `gpt-3.5-turbo-16k` as the default LLM. You can switch to other [supported models](https://python.langchain.com/docs/integrations/llms/) by LangChain; however you might have to get the API for each model or [run them locally](https://python.langchain.com/docs/integrations/llms/huggingface_pipelines).
-
-- Setup your OpenAI API key: `export OPENAI_API_KEY=[your api key]`
-
-**Run**:
-
-- Start ROScribe by typing `roscribe` in the terminal.
-
-![](docs/assets/start.gif)
-
-- Briefly describe the robot software you want to deploy.
-
-![](docs/assets/task_desc.gif)
-
-- ROScibe asks you high-level questions regarding your deployment.
-
-![](docs/assets/node_qa.gif)
-
-- Once ROScribe learns about your project, it shows you a list of ROS nodes and topics that are involved in your software. The subscriber/publisher relationship between the ROS nodes can be visualized similar to RQT graph.
-
-![](docs/assets/node_topic_viz.gif)
-
-- Moreover, you can edit (i.e. add/remove) the list of ROS nodes and topics based on your preference.
-
-![](docs/assets/mod_node_topic.gif)
-
-- After you finalize the node list, ROScribe will start identifying the specifications of each ROS node through a Q&A process. This is the most important step since the final implementation would be highly influenced by this conversation.
-
-![](docs/assets/spec_qa.gif)
-
-- The code for each node is generated when ROScribe finds all the implementation details. Additionally, ROS launch file and installation scripts (package.xml and CMakeLists.txt) are created according to the project requirements. For Python ROS nodes, don't forget to allow executing your nodes as programs via `chmod +x ros_node.py`.
-
-![](docs/assets/code_gen.gif)
-
-- After ROScribe finishes code generation, you can install your ROS package by using `catkin`. After installation, source your workspace in order to link to your ROS packages.
-
-![](docs/assets/install.gif)
-
-- You can launch your ROS package by using `roslaunch` command and calling the generated launch file.
-
-![](docs/assets/launch.gif)
+Please see our wiki page to learn how to install and use ROScribe in your robotics projects:
+* [Installation](https://github.com/RoboCoachTechnologies/ROScribe/wiki/2.-Installation)
+* [ROS Package Generation using ROScribe](https://github.com/RoboCoachTechnologies/ROScribe/wiki/3.-ROS-Package-Generation)
+* [Explore Open-source Robotics Repositories using ROScribe-RAG](https://github.com/RoboCoachTechnologies/ROScribe/wiki/4.-Explore-ROS-Repositories-with-RAG)
 
 ## Roadmap
 
