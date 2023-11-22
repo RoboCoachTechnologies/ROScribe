@@ -26,7 +26,8 @@ dependencies = [
     "graphviz",
     "schema",
     "pysqlite3-binary",
-    "chromadb"
+    "chromadb",
+    "tiktoken"
 ]
 requires-python = ">=3.8"
 
