@@ -13,7 +13,7 @@ import roscribe.ui as ui
 
 def main():
     db_name = "ros_index_db_humble_2023_10_31"
-    vectorstore = Chroma(persist_directory="./../ROS_index_database/" + db_name, embedding_function=OpenAIEmbeddings())
+    vectorstore = Chroma(persist_directory="ROS_index_database/" + db_name, embedding_function=OpenAIEmbeddings())
     retriever = vectorstore.as_retriever(search_type="mmr", search_kwargs={'k': 8})
     
     # Tool Declaration
@@ -32,7 +32,7 @@ def main():
     
     while True:
         print('\n\n')
-        human_input = input()
+        human_input = input("Input: ")
         result = agent_executor({"input": human_input})
         print('\n\n')
         print(result["output"])
