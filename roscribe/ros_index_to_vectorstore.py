@@ -26,7 +26,7 @@ repo_URLs, repo_names = ros_index_transformer.get_distro_URLs(html_list)
 
 # Initialize Database
 db_name = "ros_index_db_{}_".format(ros_version) + str(date.today()).replace("-", "_")
-vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory="./../ROS_index_database/" + db_name)
+vectorstore = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory="ROS_index_database/" + db_name)
 print("A ChromaDB object has been initialized!")
 
 # Load ROS Repositories
