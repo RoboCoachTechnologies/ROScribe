@@ -5,7 +5,7 @@ from roscribe.model import llm_init
 from roscribe.prompt import get_project_name_prompt, get_task_spec_prompt, get_task_spec_summarize_prompt,\
     get_gen_node_prompt, get_gen_topic_prompt, get_node_qa_prompt, get_node_qa_sum_prompt
 from roscribe.parser import make_node_list, make_node_topic_dict, make_node_topic_list_str, modify_node_dict
-from roscribe.generator import catkin_ws_generator, code_generator, launch_generator, install_generator
+from roscribe.generator import ros_ws_generator, code_generator, launch_generator, install_generator
 from roscribe.visualization import show_node_graph
 
 import roscribe.ui as ui
@@ -17,6 +17,10 @@ def main(verbose=False):
     print(ui.WELCOME_MSG)
 
     task_message = input("Your Robot Software: ")  # User-specified task
+    ros_version = input("ROS1 or ROS2? ").replace(" ", "").lower()  # User-specified ROS version
+    while ros_version not in ['ros1', 'ros2']:
+        print(ui.VALID_ROS_VER)
+        ros_version = input("ROS1 or ROS2? ").replace(" ", "").lower()
 
     project_name_prompt = get_project_name_prompt()
     project_name_chain = LLMChain(
@@ -25,9 +29,9 @@ def main(verbose=False):
         verbose=verbose)
     project_name = project_name_chain.predict(task=task_message)
 
-    catkin_ws_generator(project_name)
+    ros_ws_generator(project_name, ros_version)
 
-    task_spec_prompt, task_spec_end_str = get_task_spec_prompt(task_message)
+    task_spec_prompt, task_spec_end_str = get_task_spec_prompt(task_message, ros_version)
     task_spec_memory = ConversationBufferMemory()
     task_spec_chain = ConversationChain(
         llm=llm,
@@ -57,7 +61,7 @@ def main(verbose=False):
     task_spec_memory.return_messages = True
     task_spec_sum_output = task_spec_summary_chain.predict(input=task_spec_memory.load_memory_variables({}))
 
-    node_gen_prompt, node_gen_parser = get_gen_node_prompt()
+    node_gen_prompt, node_gen_parser = get_gen_node_prompt(ros_version)
     node_gen_chain = LLMChain(
         llm=llm,
         prompt=node_gen_prompt,
@@ -67,7 +71,7 @@ def main(verbose=False):
     node_gen_list = node_gen_parser.parse(node_gen_output).ros_nodes
     node_list_str = make_node_list(node_gen_list)
 
-    topic_gen_prompt, topic_gen_parser = get_gen_topic_prompt()
+    topic_gen_prompt, topic_gen_parser = get_gen_topic_prompt(ros_version)
     topic_gen_chain = LLMChain(
         llm=llm,
         prompt=topic_gen_prompt,
@@ -134,8 +138,10 @@ def main(verbose=False):
     print(ui.QA_MSG_INIT)
 
     for node in node_topic_dict.keys():
-        node_spec_prompt, node_spec_end_str = get_node_qa_prompt(
-            task=task_message, node_topic_list=node_topic_list_str, curr_node=node)
+        node_spec_prompt, node_spec_end_str = get_node_qa_prompt(task=task_message,
+                                                                 node_topic_list=node_topic_list_str,
+                                                                 curr_node=node,
+                                                                 ros_version=ros_version)
         node_spec_memory = ConversationBufferMemory()
         node_spec_chain = ConversationChain(
             llm=llm,
@@ -165,13 +171,13 @@ def main(verbose=False):
         node_spec_memory.return_messages = True
         sum_output = summary_chain.predict(input=node_spec_memory.load_memory_variables({}))
 
-        code_generator(task_message, node_topic_list_str, node, sum_output, project_name, llm, verbose)
+        code_generator(task_message, node_topic_list_str, node, sum_output, project_name, ros_version, llm, verbose)
 
     print(ui.LAUNCH_INSTALL_MSG)
 
-    launch_generator(task_message, node_topic_list_str, project_name, llm)
+    launch_generator(task_message, node_topic_list_str, project_name, ros_version, llm, verbose)
 
-    install_generator(task_message, node_topic_list_str, project_name, llm)
+    install_generator(task_message, node_topic_dict, node_topic_list_str, project_name, ros_version, llm, verbose)
 
     print(ui.FAREWELL_MSG)
 

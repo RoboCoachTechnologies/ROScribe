@@ -35,8 +35,7 @@ Please see our wiki page to learn how to install and use ROScribe in your roboti
 
 ## Roadmap
 
-Currently, ROScribe only supports ROS1 with Python code generation. We aim to add the following features in the coming releases:
-- ROS2 support
+Currently, ROScribe supports both ROS1 and ROS2 with Python code generation. We aim to add the following features in the coming releases:
 - C++ code generation
 - ROS1 to ROS2 automated codebase migration
 

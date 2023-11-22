@@ -18,7 +18,12 @@ def get_project_name_prompt():
     return PromptTemplate(template=template, input_variables=["task"])
 
 
-def get_task_spec_prompt(task):
+def get_task_spec_prompt(task, ros_version):
+    if ros_version == 'ros1':
+        ros_version_str = "ROS1"
+    elif ros_version == 'ros2':
+        ros_version_str = "ROS2"
+
     template = """A human wants to write a robotics software with the help of a super talented software engineer AI.
     
     The AI is very proficient in robotics, especially in writing robot software in ROS, which stands for Robot Operating System.
@@ -26,7 +31,7 @@ def get_task_spec_prompt(task):
     The human task is provided below:
     - Human task: {task}
     
-    The human wants the task to be implemented in ROS1 using Python programming language.
+    The human wants the task to be implemented in {ros_version} using Python programming language.
     
     The AI's role here is to help the human to identify the specifications for implementing the task.
     
@@ -50,7 +55,7 @@ def get_task_spec_prompt(task):
     AI:"""
     return PromptTemplate(template=template,
                           input_variables=["history", "input"],
-                          partial_variables={"task": task}), "END_OF_TASK_SPEC"
+                          partial_variables={"task": task, "ros_version": ros_version_str}), "END_OF_TASK_SPEC"
 
 
 def get_task_spec_summarize_prompt():
@@ -65,7 +70,12 @@ def get_task_spec_summarize_prompt():
     return PromptTemplate(template=template, input_variables=["input"])
 
 
-def get_gen_node_prompt():
+def get_gen_node_prompt(ros_version):
+    if ros_version == 'ros1':
+        ros_version_str = "ROS1"
+    elif ros_version == 'ros2':
+        ros_version_str = "ROS2"
+
     template = """A human wants to write a robotics software with the help of a super talented software engineer AI.
     
     The AI is very proficient in robotics, especially in writing robot software in ROS, which stands for Robot Operating System.
@@ -73,7 +83,7 @@ def get_gen_node_prompt():
     The human task is provided below:
     - Human task: {task}
     
-    The human wants the task to be implemented in ROS1 using Python programming language.
+    The human wants the task to be implemented in {ros_version} using Python programming language.
     
     The AI's role here is to help the human to identify the components for implementing the task.
     
@@ -91,10 +101,16 @@ def get_gen_node_prompt():
     The ROS nodes should be complementary to each other, and their description should indicate how each ROS node is used by the other ROS nodes."""
     parser = get_node_parser()
     return PromptTemplate(template=template, input_variables=["task", "summary"],
-                          partial_variables={"format_instructions": parser.get_format_instructions()}), parser
+                          partial_variables={"format_instructions": parser.get_format_instructions(),
+                                             "ros_version": ros_version_str}), parser
 
 
-def get_gen_topic_prompt():
+def get_gen_topic_prompt(ros_version):
+    if ros_version == 'ros1':
+        ros_version_str = "ROS1"
+    elif ros_version == 'ros2':
+        ros_version_str = "ROS2"
+
     template = """A human wants to write a robotics software with the help of a super talented software engineer AI.
 
         The AI is very proficient in robotics, especially in writing robot software in ROS, which stands for Robot Operating System.
@@ -102,7 +118,7 @@ def get_gen_topic_prompt():
         The human task is provided below:
         - Human task: {task}
 
-        The human wants the task to be implemented in ROS1 using Python programming language.
+        The human wants the task to be implemented in {ros_version} using Python programming language.
 
         The AI's role here is to help the human to identify the components for implementing the task.
 
@@ -126,10 +142,16 @@ def get_gen_topic_prompt():
         The AI does not need to provide code snippets. Each identified ROS topic should be responsible for connecting a subset of ROS nodes."""
     parser = get_topic_parser()
     return PromptTemplate(template=template, input_variables=["task", "summary", "ros_nodes"],
-                          partial_variables={"format_instructions": parser.get_format_instructions()}), parser
+                          partial_variables={"format_instructions": parser.get_format_instructions(),
+                                             "ros_version": ros_version_str}), parser
 
 
-def get_node_qa_prompt(task, node_topic_list, curr_node):
+def get_node_qa_prompt(task, node_topic_list, curr_node, ros_version):
+    if ros_version == 'ros1':
+        ros_version_str = "ROS1"
+    elif ros_version == 'ros2':
+        ros_version_str = "ROS2"
+
     template = """A human wants to write a robotics software with the help of a super talented software engineer AI.
     
     The AI is very proficient in robotics, especially in writing robot software in ROS, which stands for Robot Operating System.
@@ -137,7 +159,7 @@ def get_node_qa_prompt(task, node_topic_list, curr_node):
     The human task is provided below:
     - Human task: {task}
     
-    The human wants the task to be implemented in ROS1 using Python programming language.
+    The human wants the task to be implemented in {ros_version} using Python programming language.
     
     The AI has identified the following list of ROS nodes that need to be implemented for the task:
     {node_topic_list}
@@ -162,10 +184,13 @@ def get_node_qa_prompt(task, node_topic_list, curr_node):
                           input_variables=["history", "input"],
                           partial_variables={"task": task,
                                              "node_topic_list": node_topic_list,
-                                             "curr_node": curr_node}), "END_OF_NODE_SPEC"
+                                             "curr_node": curr_node,
+                                             "ros_version": ros_version_str}), "END_OF_NODE_SPEC"
 
 
 def get_node_qa_sum_prompt():
+    # TODO: Either combine or differentiate the prompts for task and node QA summarizations.
+
     template = """The following is a conversation between an AI and a human regarding implementation of a robot software.
 
     Summarize the conversation in bullet point format by extracting the most important information exchanged within the conversation.
@@ -177,17 +202,22 @@ def get_node_qa_sum_prompt():
     return PromptTemplate(template=template, input_variables=["input"])
 
 
-def get_gen_code_prompt():
+def get_gen_code_prompt(ros_version):
+    if ros_version == 'ros1':
+        ros_version_str = "ROS1"
+    elif ros_version == 'ros2':
+        ros_version_str = "ROS2"
+
     template = """You are a super talented software engineer AI.
     
     In particular, You are very proficient in robotics, especially in writing robot software in ROS, which stands for Robot Operating System.
     
-    A human wants to write a robotics software with your help.
+    A human wants to write a {ros_version} package with your help.
     
     The human task is provided below:
     - Human task: {task} 
     
-    The human wants the task to be implemented in ROS1 using Python programming language.
+    The human wants the task to be implemented in {ros_version} using Python programming language.
     
     Here is the list of ROS nodes that need to be implemented for the task:
     {node_topic_list}
@@ -199,7 +229,7 @@ def get_gen_code_prompt():
     Summary:
     {summary}
     
-    Implement the ROS node '{curr_node}' in Python programming language using ROS1. Make sure that you fully implement everything that is necessary for the code to work.
+    Implement the ROS node '{curr_node}' in Python programming language using {ros_version}. Make sure that you fully implement everything that is necessary for the code to work.
     Think step by step and reason yourself to the right decisions to make sure we get it right.
 
     Output your implementation strictly in the following format.
@@ -218,26 +248,32 @@ def get_gen_code_prompt():
     - Your implementation satisfies all of the specifications mentioned in the above summary.
     - Your implementation takes into consideration all the topics that '{curr_node}' publishes or subscribes to."""
     return PromptTemplate(template=template,
-                          input_variables=["task", "node_topic_list", "curr_node", "summary"])
+                          input_variables=["task", "node_topic_list", "curr_node", "summary"],
+                          partial_variables={"ros_version": ros_version_str})
 
 
-def get_gen_launch_prompt():
+def get_gen_launch_prompt(ros_version):
+    if ros_version == 'ros1':
+        ros_version_str = "ROS1"
+    elif ros_version == 'ros2':
+        ros_version_str = "ROS2"
+
     template = """You are a super talented software engineer AI.
 
     In particular, You are very proficient in robotics, especially in writing robot software in ROS, which stands for Robot Operating System.
 
-    A human wants to write a robotics software with your help.
+    A human wants to write a {ros_version} package with your help.
 
     The human task is provided below:
     - Human task: {task}
     - ROS package name: {project_name}
 
-    The human wants the task to be implemented in ROS1.
+    The human wants the task to be implemented in {ros_version}.
 
-    Here is the list of ROS nodes that has been implemented for the task:
+    Here is the list of ROS nodes that has been already implemented for the task:
     {node_topic_list}
     
-    Your sole focus is to create a ROS launch file that launches the above ROS nodes, so that the user can start the task by calling the created launch file.
+    Your sole focus is to create a {ros_version} launch file that launches the above ROS nodes, so that the user can start the task by calling the created launch file.
     
     Keep in mind that all of the ROS nodes are implemented in Python programming language.
     
@@ -254,9 +290,10 @@ def get_gen_launch_prompt():
     CODE
     ```
 
-    Where 'CODE' is your created ROS launch script and 'FILENAME' is a valid ROS launch file name based on the task."""
+    Where 'CODE' is your created {ros_version} launch script and 'FILENAME' is a valid {ros_version} launch file name based on the task."""
     return PromptTemplate(template=template,
-                          input_variables=["task", "node_topic_list", "project_name"])
+                          input_variables=["task", "node_topic_list", "project_name"],
+                          partial_variables={"ros_version": ros_version_str})
 
 
 def get_gen_cmake_prompt():
@@ -264,15 +301,15 @@ def get_gen_cmake_prompt():
 
     In particular, You are very proficient in robotics, especially in writing robot software in ROS, which stands for Robot Operating System.
 
-    A human wants to write a robotics software with your help.
+    A human wants to write a ROS1 package with your help.
 
     The human task is provided below:
     - Human task: {task}
-    - Catkin package name: {project_name}
+    - ROS1 package name: {project_name}
 
     The human wants the task to be implemented in ROS1 and built via catkin.
 
-    Here is the list of ROS nodes that has been implemented for the task:
+    Here is the list of ROS nodes that has been already implemented for the task:
     {node_topic_list}
 
     Your sole focus is to create a CMakeLists file that contains the catkin installation directives.
@@ -301,29 +338,36 @@ def get_gen_cmake_prompt():
                           input_variables=["task", "node_topic_list", "project_name"])
 
 
-def get_gen_package_prompt():
+def get_gen_package_prompt(ros_version):
+    if ros_version == 'ros1':
+        ros_version_str = "ROS1"
+        ament_str = ""
+    elif ros_version == 'ros2':
+        ros_version_str = "ROS2"
+        ament_str = "Since this is a ROS2 package with python implementation, make sure you set the 'build_type' as 'ament_python'."
+
     template = """You are a super talented software engineer AI.
 
     In particular, You are very proficient in robotics, especially in writing robot software in ROS, which stands for Robot Operating System.
 
-    A human wants to write a robotics software with your help.
+    A human wants to write a {ros_version} package with your help.
 
     The human task is provided below:
     - Human task: {task}
     - ROS package name: {project_name}
 
-    The human wants the task to be implemented in ROS1.
+    The human wants the task to be implemented in {ros_version}.
 
-    Here is the list of ROS nodes that has been implemented for the task:
+    Here is the list of ROS nodes that has been already implemented for the task:
     {node_topic_list}
 
-    Your sole focus is to create a package.xml file that defines properties about the package such as the package name, version numbers, authors, maintainers, and dependencies on other catkin packages.
+    Your sole focus is to create a package.xml file that defines properties about the package such as the package name, version numbers, authors, maintainers, and dependencies on other packages.
 
     In terms of dependencies, pay attention to the ROS message types in the list above; since the message types dictate the package dependencies.
     
-    Also note that the ROS package name is '{project_name}'.
+    Also note that the ROS package name is '{project_name}'. {ament_str}
 
-    Make sure that you fully implement everything in the package.xml file that is necessary for the catkin installation to work.
+    Make sure that you fully implement everything in the package.xml file that is necessary for the ROS installation to work.
 
     Think step by step and reason yourself to the right decisions to make sure we get it right.
 
@@ -336,4 +380,5 @@ def get_gen_package_prompt():
 
     Where 'CODE' is your created package.xml script."""
     return PromptTemplate(template=template,
-                          input_variables=["task", "node_topic_list", "project_name"])
+                          input_variables=["task", "node_topic_list", "project_name"],
+                          partial_variables={"ros_version": ros_version_str, "ament_str": ament_str})
