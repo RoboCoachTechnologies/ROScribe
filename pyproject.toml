@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "roscribe"
-version = "0.0.4"
+version = "0.1.0"
 description = "Translate natural language into robot software."
 readme = "README.md"
 authors = [{ name = "RoboCoach Technologies", email = "robocoachtechnologies@gmail.com" }]
@@ -24,7 +24,6 @@ keywords = ["Large Language Models", "AI-assisted Code Generation", "Robotics"]
 dependencies = [
     "langchain[openai]",
     "graphviz",
-    "schema",
     "pysqlite3-binary",
     "chromadb",
     "tiktoken"
@@ -40,7 +39,6 @@ Homepage = "https://github.com/RoboCoachTechnologies/ROScribe"
 
 [project.scripts]
 roscribe = "roscribe.main:main"
-roscribe-rag = "roscribe.ros_index_chatbot:main"
 
 [tool.setuptools]
 packages = ["roscribe"]

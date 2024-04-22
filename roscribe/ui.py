@@ -1,113 +1,90 @@
-WELCOME_MSG = """
+SPEC_AGENT_WELCOME_MSG = """
 Welcome to ROScribe! I am here to assist you with creating a robot software.
 
-First, please briefly tell me what you would like to implement. Don't worry about the details! We will talk about them later.
+As a first step, please briefly tell me what you would like to implement. Don't worry about the details! We will talk about them later.
 """
 
 
-WELCOME_MSG_RAG = """
-Welcome to ROScribe-RAG! I am here to assist you with finding the most suitable ROS packages for your needs.
-
-First, please briefly tell me what you would like to implement. Don't worry about the details! We can talk about them later.
+SPEC_AGENT_FAREWELL_MSG = """
+It seems like we now have a high-level understanding of the ROS project. I am going to pass the information about the project to the generator agent.
 """
 
-VALID_ROS_VER = """
-Please enter a valid ROS version. The acceptable answers are either 'ROS1' or 'ROS2'.
+
+GEN_AGENT_WELCOME_MSG = """
+Hey there! This is the generator agent! I am here to help you with implementing your ROS nodes.
 """
 
-NODE_MSG_ANALYZE_INIT = """
-I am going to analyze our conversation and identify the ROS nodes and ROS topics that are going to be involved in our project.
 
-Give me a few seconds!
+GEN_AGENT_NODE_MSG = """
+Let's get started with implementing '{curr_node}'. Do you prefer to implement this node from scratch? or alternatively use an open-source project if possible?
 """
 
-NODE_MSG_ANALYZE_FINISH = """
-I finished my analysis! Based on my knowledge, you might need the following ROS nodes and ROS topics:
+
+GEN_AGENT_FAREWELL_MSG = """
+Now that we are done with writing the code for the ROS nodes, we need to create installation scripts and documentation for the project.
+
+The packaging agent will take over this conversation to help you with the next steps.
 """
 
-SHOW_NODE_GRAPH = """
-Do you want to see a node graph of your project?
+
+PACK_AGENT_LAUNCH_MSG = """
+Hey there! This is the packaging agent! I am here to help you with finalizing your ROS project.
+
+The following are the main steps to make sure your ROS project will be working smoothly:
+1- Writing a ROS launch file to start the necessary ROS nodes.
+2- Defining package.xml and CMakeLists.txt files so we can build your ROS package.
+3- Creating a README.md file that contains information about your ROS package.
+
+We start by writing a launch file. Based on the information provided by the generator package, I have prepared an initial launch file shown below:
+
+{launch}
+
+Let me know what changes you would like to make to this launch file.
 """
 
-SHOW_NODE_GRAPH_AGAIN = """
-Do you want to see the updated node graph of your project?
+
+PACK_AGENT_PACKAGE_MSG = """
+Now that we are done with writing the launch file, let's switch our focus on defining a package.xml file for our ROS package.
+
+Based on the information provided by the generator package, I have prepared an initial package.xml file shown below:
+
+{package}
+
+Let me know what changes you would like to make to this package.xml file.
 """
 
-YN_RESP_ERROR = """
-Invalid answer. Please answer with only 'yes' or 'no'.
+
+PACK_AGENT_CMAKE_MSG = """
+Now that we are done with writing the package.xml file, let's switch our focus on defining a CMakeLists.txt file for our ROS package.
+
+Based on the information provided by the generator package, I have prepared an initial CMakeLists.txt file shown below:
+
+{cmake}
+
+Let me know what changes you would like to make to this CMakeLists.txt file.
 """
 
-CHECK_FOR_MOD_INIT = """
-Would you like to add or remove any ROS nodes?
+
+PACK_AGENT_README_MSG = """
+Last but not least, let's create a README.md file for our ROS package.
+
+Based on the information provided by the generator package, I have prepared an initial README.md file shown below:
+
+{readme}
+
+Let me know what changes you would like to make to this README.md file.
 """
 
-CHECK_FOR_MOD_AGAIN = """
-Would you like to add or remove additional ROS nodes?
+
+PACK_AGENT_FAREWELL_MSG = """
+The implementation of your ROS project has finished, congratulations!
+
+I understand that there might be still some problems down the road. The support agent will help you for the rest of the project's life cycle in case you encountered any issues.
 """
 
-TRY_MOD_AGAIN = """
-Would you like to try again?
-"""
 
-MOD_INST = """
-In order to add a ROS node, provide a 4-tuple with the following format:
+SUPPORT_AGENT_LAUNCH_MSG = """
+Hi there! This is the support agent. Feel free to ask me questions regarding your ROS project.
 
-(
- 'ROS_node_name',
- 'ROS_node_description',
- [('subscribed_topic_1', 'ROS_message_type'), ('subscribed_topic_2', 'ROS_message_type'), ...],
- [('published_topic_1', 'ROS_message_type'), ('published_topic_2', 'ROS_message_type'), ...]
-)
-
-For removing a ROS node, you can follow the above format, but leave the node description empty. For example:
-
-('node_name_to_be_removed', '', [], [])
-"""
-
-MOD_SUCCESS = """
-Your list of ROS nodes have been successfully updated. Here is the new list:
-"""
-
-MOD_SUCCESS_W_WARN = """
-Your list of ROS nodes have been successfully updated, but the following warning was found:
-
-{warning_msg}
-
-Here is the new list:
-"""
-
-MOD_FAILED = """
-Update failed!
-
-{warning_msg}
-"""
-
-QA_MSG_INIT = """
-Now I am going to ask some questions about the details for each of the components. Your answers will help me to better understand the specifications of the problem you are working on.
-"""
-
-QA_MSG_TITLE = """
-Let's talk about {node}.
-"""
-
-LAUNCH_INSTALL_MSG = """
-It seems like we have implemented all the ROS nodes for the project. Now I am going to finalize the package creation by adding launch files, installation scripts, and ROS package description.
-"""
-
-GEN_NODE_CODE_MSG = """
-I finished the implementation for ROS node {node}! You can find it in the 'workspace' directory.
-"""
-
-GEN_LAUNCH_MSG = """
-ROS launch file creation completed!
-"""
-
-GEN_INSTALL_MSG = """
-CMakeLists.txt and package.xml files have been created!
-"""
-
-FAREWELL_MSG = """
-Your ROS package implementation is complete!
-
-Farewell my friend!
+Keep in mind that I can internally read the generated files for the project, so you don't need to copy/paste them to the chat.
 """
