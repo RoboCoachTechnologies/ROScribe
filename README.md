@@ -33,7 +33,7 @@ Please see our wiki page to learn how to install and use ROScribe in your roboti
 
 ## Demos
 
-- [LiDAR Simultaneous Localization and Mapping (SLAM)](https://www.youtube.com/watch?v=xxx)
+- [LiDAR Simultaneous Localization and Mapping (SLAM)](https://www.youtube.com/watch?v=wxZSVwvJVek)
 
 ## Additional documentations & articles
 
